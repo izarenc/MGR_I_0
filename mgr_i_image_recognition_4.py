@@ -6,6 +6,9 @@ from matplotlib import pyplot as plt
 import matplotlib
 from noise import snoise2
 import cv2
+import os
+
+path = os.path.dirname(os.path.realpath(__file__))
 
 def findRegions(img):
     result=[]
@@ -45,7 +48,7 @@ def grow(obj, li, res):
         grow(curent,li,res)
         
 #READ FILE
-image = misc.imread(r"C:\Users\Iza\Desktop\Telefony1.2.bmp")
+image = misc.imread(path + r"\Telefony1.2.bmp")
 data=np.array(image)
 data=np.array(image)
 o_data=data=data[:,:,0]
@@ -59,7 +62,7 @@ for y in xrange(len(data[0])):
             v = snoise2(x, y , 8)
             if v < 0: v *= -1
             a[x][y] = int(v * 100.) #przesadziłam?
-
+np.savetxt(path+r"\\PerlinNoise.csv", a, delimiter=",")
 data = data+a
 o_data= data = np.uint8( (data/data.max())*255. )
 
